@@ -7,10 +7,16 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
         mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         txtOrien = (TextView)findViewById(R.id.textViewOrien);
+
+        for (int i = 0; i < 10 ; i++) {
+            Log.d("MainActivity","Counter Value: "+ i);
+        }
+
+        showCustomtoast();
+
 
     }
 
@@ -99,6 +112,23 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+
+    //// Mensaje personalizado
+    private void showCustomtoast(){
+
+        Toast toast = new Toast(this);
+        //usamos cualquier layout como Toast
+        View toast_layout = getLayoutInflater().inflate(R.layout.custom_toast_layout, (ViewGroup) findViewById(R.id.emergente));
+        toast.setView(toast_layout);
+
+        //se podría definir el texto en el layout si es invariable pero lo hacemos programáticamente como ejemplo
+        //tenemos acceso a cualquier widget del layout del Toast
+        TextView textView = (TextView) toast_layout.findViewById(R.id.textView);
+        textView.setText("Este es un mensaje personalizado");
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
     }
 
 
